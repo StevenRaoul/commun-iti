@@ -28,11 +28,12 @@ function onEmojiPicked(emoji: string) {
       <el-button :icon="EmojiIcon" circle size="small" @click="$refs.emojiPicker.show()" />
     </div>
 
-    <bg-image class="message-user-photo" src="" />
+    <bg-image class="message-user-photo" src="../../../../assets/logo.svg" />
 
     <div class="message-content">
       <div class="message-title">
         <small class="message-date"></small>
+        <rich-text :text="message.text"></rich-text>
       </div>
 
     </div>

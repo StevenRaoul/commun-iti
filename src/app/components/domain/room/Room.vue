@@ -32,7 +32,7 @@ const container = ref<HTMLDivElement | null>(null);
 
 // Element that have the scrollbar
 const root = ref<HTMLDivElement | null>(null);
-
+console.log("la");
 subscribeToIncomingMessage();
 
 
@@ -44,6 +44,7 @@ watch(
      */
     
     store.reset();
+    console.log("aaaaaaaaaaaaaaaa");
     await fetchMore();
 
     subscribeToIncomingMessage();
@@ -51,6 +52,7 @@ watch(
 );
 
 function subscribeToIncomingMessage() {
+  console.log("message");
   // TODO
 }
 
@@ -63,6 +65,9 @@ async function fetchMore() {
     loading.value = true;
 
     // TODO fetch more messages
+    await messageSerivce.fetchMore(props.room.id);
+    console.log("beta");
+    console.log(store.state.currentRoomMessages);
   } catch (e) {
     console.error(e);
   } finally {
@@ -74,7 +79,9 @@ async function fetchMore() {
 <template>
   <div class="room stretch-wh" ref="root">
     <div class="room-container" ref="container">
-      <div ref="top"></div>
+      <div ref="top">
+        <Message v-for="message, index in store.state.currentRoomMessages" :message="message" :key="index"></Message>
+      </div>
     </div>
   </div>
 </template>

@@ -2,12 +2,14 @@
 import { RoomStore } from "@/modules/room/store";
 import { useState, useStore } from "@/app/platform";
 import type { Room } from "@/modules/room/models/domain/Room";
+import router from "@/app/router";
 const state = useState(RoomStore);
 const store = useStore(RoomStore);
 
 
-function selectRoom(room: Room) {
+async function selectRoom(room: Room) {
   store.setCurrentRoom(room);
+  await router.push("/app/room/" + room.id);
 }
 
 </script>
@@ -15,7 +17,7 @@ function selectRoom(room: Room) {
 <template>
   <nav class="room-list">
     <ul>
-      <li @click="selectRoom(room)" class="room-item" v-for="room in state.rooms">
+      <li @click="selectRoom(room)" class="room-item" v-for="room in store.state.rooms">
         {{ room.name }}
       </li>
     </ul>

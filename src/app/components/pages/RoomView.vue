@@ -15,11 +15,13 @@ const [roomApi] = useProvider([RoomAPI]);
 watch(
   () => route.params.roomId as string,
   async (roomId: string) => {
+    console.log("maybe ?")
     if (roomStore.state.currentRoom?.id !== roomId) {
       const room = await roomApi.findById(roomId);
 
       if (room) {
         roomStore.setCurrentRoom(room);
+        console.log("yo");
         return true;
       } else {
         return { path: "/app" };

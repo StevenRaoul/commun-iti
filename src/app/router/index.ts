@@ -70,7 +70,6 @@ const router = createRouter({
 
             if (roomStore.state.currentRoom?.id !== to.params.roomId) {
               const room = await roomApi.findById(to.params.roomId as string);
-
               if (room) {
                 roomStore.setCurrentRoom(room);
                 return true;

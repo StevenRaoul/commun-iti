@@ -24,9 +24,7 @@ if (authState.token?.bearer) {
     <main>
       <main>
         <!-- TODO -->
-        <router-view>
-          <slot></slot>
-        </router-view>
+        <router-view></router-view>
       </main>
       <footer>
         <message-input />

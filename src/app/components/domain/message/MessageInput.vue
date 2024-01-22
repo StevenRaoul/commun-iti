@@ -8,11 +8,13 @@ import RichTextEditorVue from "../../ui/RichTextEditor.vue";
 const [messageService] = useProvider([MessageService]);
 const roomState = useState(RoomStore);
 
-function getMSG(msg:RichText) {
-  if (roomState.currentRoom!=null) {
+function getMSG(msg:RichText){
+
+  if(roomState.currentRoom!=null){
     messageService.sendMessage({text:msg, roomId:roomState.currentRoom.id});
-  }
+  } 
 }
+
 
 </script>
 <template>
@@ -21,7 +23,7 @@ function getMSG(msg:RichText) {
   </div>
 </template>
 <style lang="scss" scoped>
-@use "@/app/styles/var";  
+@use "@/app/styles/var";
 
 .message-input {
   border-top: 1px solid var.$color-light-gray;

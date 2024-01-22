@@ -80,7 +80,7 @@ async function fetchMore() {
   <div class="room stretch-wh" ref="root">
     <div class="room-container" ref="container">
       <div ref="top">
-        <Message v-for="message, index in store.state.currentRoomMessages" :message="message" :key="index"></Message>
+        <Message v-for="message, index in store.state.currentRoomMessages.slice().reverse()" :message="message" :key="index"></Message>
       </div>
     </div>
   </div>

@@ -14,7 +14,13 @@ const loading = ref(false);
 const router = useRouter();
 
 const formRules = reactive<FormRules>({
-  
+  name: [
+    {
+      required: true,
+      message: "Veuillez spécifier le nom du salon.",
+      trigger: "blur"
+    }
+  ],
 });
 
 const { isVisible, hide, show, formModel } = useFormModal(
@@ -24,16 +30,22 @@ const { isVisible, hide, show, formModel } = useFormModal(
   form
 );
 
+
 async function onSubmit(form?: FormInstance) {
   if (!form) {
     return;
   }
 
   try {
+    roomApi.leave("b871101-ac99-4712-a5b6-60d1216a44fe");
     loading.value = true;
     await form.validate();
-
-    
+    if(await roomApi.exists(formModel.value.name)) {
+      ElMessage({message: "Le salon existe déjà", type: "error"});
+      throw new Error("RoomAlreadyExistsError");
+    }
+    roomService.create({name: formModel.value.name});
+    hide();
   } catch (e) {
     return;
   } finally {
@@ -58,7 +70,7 @@ defineExpose({
       @submit.prevent="onSubmit(form!)"
     >
       <el-form-item label="Nom du salon" prop="name">
-     
+        <el-input v-model="formModel.name"/>
       </el-form-item>
     </el-form>
 

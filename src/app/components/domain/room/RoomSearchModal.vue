@@ -38,8 +38,9 @@ async function onSubmit(form?: FormInstance) {
   try {
     loading.value = true;
     await form.validate();
-
+    roomService.join(formModel.value.roomId);
     hide();
+    router.push("/app/room/" + formModel.value.roomId);
   } catch (e) {
     return;
   } finally {
@@ -53,7 +54,7 @@ async function onSubmit(form?: FormInstance) {
  * @param text 
  */
 async function searchRooms(text: string) {
- 
+  foundRooms.value = await roomApi.search(formModel.value.roomId);
 }
 
 defineExpose({

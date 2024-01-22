@@ -5,14 +5,20 @@ import type { Room } from "@/modules/room/models/domain/Room";
 const state = useState(RoomStore);
 const store = useStore(RoomStore);
 
+
 function selectRoom(room: Room) {
   store.setCurrentRoom(room);
 }
+
 </script>
 
 <template>
   <nav class="room-list">
-    
+    <ul>
+      <li @click="selectRoom(room)" class="room-item" v-for="room in state.rooms">
+        {{ room.name }}
+      </li>
+    </ul>
   </nav>
 </template>
 
@@ -49,5 +55,15 @@ function selectRoom(room: Room) {
       }
     }
   }
+}
+
+.room-item {
+  color: white;
+  padding-left: 10px;
+  background-color: #ffffff11;
+}
+
+.room-item:hover {
+  background-color: #ffffff22;
 }
 </style>

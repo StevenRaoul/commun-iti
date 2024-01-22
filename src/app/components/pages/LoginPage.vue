@@ -18,10 +18,19 @@ const userNameRegex = /^(\w+)$/i;
 
 const loginFormRules = reactive<FormRules>({
   username: [
-  
+    {
+      required: true,
+      message: "Pseudo obligatoire",
+      pattern: userNameRegex,
+      trigger: "blur"
+    }
   ],
   password: [
-  
+    {
+      required: true,
+      message: "Mot de passe obligatoire",
+      trigger: "blur"
+    }
   ]
 });
 
@@ -32,8 +41,11 @@ async function onSubmit(form?: FormInstance) {
 
   try {
     await form.validate();
-
+    ElMessage({message: "Connexion réussie !", type: "success"});
+    await authService.authenticate(loginModel);
+    router.push("/app");
   } catch (e) {
+    ElMessage({message: "La connexion a échouée. Veuillez vérifier les informations.", type: "error"});
     return;
   }
 }
@@ -50,12 +62,16 @@ async function onSubmit(form?: FormInstance) {
           :rules="loginFormRules"
           label-position="top"
           class="login-form"
-          @submit.prevent=""
+          @submit.prevent="onSubmit($refs.form)"
         >
-          <el-form-item label="Pseudo" prop="username"> </el-form-item>
+          <el-form-item label="Pseudo" prop="username"> 
+            <el-input v-model="loginModel.username"/>
+          </el-form-item>
 
-          <el-form-item label="Mot de passe" prop="password"> </el-form-item>
-
+          <el-form-item label="Mot de passe" prop="password">
+            <el-input type="password" v-model="loginModel.password"/>
+          </el-form-item>
+            
           <el-form-item>
             <div class="form-actions">
               <el-button type="primary" native-type="submit">Connexion</el-button>

@@ -1,0 +1,1 @@
+import{_ as e,c as t,o,V as a}from"./chunks/framework.2xniYgV0.js";const f=JSON.parse(`{"title":"Edition d'un utilisateur","description":"","frontmatter":{},"headers":[],"relativePath":"user.md","filePath":"user.md"}`),i={name:"user.md"},r=a("",3),l=[r];function n(d,s,u,c,m,p){return o(),t("div",null,l)}const h=e(i,[["render",n]]);export{f as __pageData,h as default};
